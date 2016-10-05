@@ -1,12 +1,8 @@
-
-// var username = $('#username').val();
-// var userGh = 'https://api.github.com/users/'+username+'/orgs';
-function orgSearch() {
-  var jisaacks = 'https://api.github.com/users/jisaacks/orgs';
+function orgSearch(usernameString) {
   var settings = {
     'async': true,
     'crossDomain': true,
-    'url': jisaacks,
+    'url': 'https://api.github.com/users/'+ encodeURI(usernameString)+ '/orgs',
     'method': 'GET',
     'processData': false,
     'data': '{}'
@@ -28,14 +24,9 @@ $.ajax(settings).done(function (response) {
 $('form').submit(function() {
   event.preventDefault();
   var usernameString = $('#githubUser').val();
-
-  orgSearch();
+  clearDisplay();
+  orgSearch(usernameString);
 });
-
-// $('#submitButton').on('click', function() {
-//   event.preventDefault();
-//   orgSearch();
-// });
 
 // Organization Details constructor
 function OrgInfo(orgObject) {
@@ -50,3 +41,6 @@ OrgInfo.prototype.buildDisplay = function() {
   var label = $('<h2>').html(this.name).appendTo(container);
   $(container).prependTo('.content');
 };
+function clearDisplay() {
+  $('.content').empty();
+}
