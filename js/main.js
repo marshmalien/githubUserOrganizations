@@ -8,7 +8,7 @@ function orgSearch(usernameString) {
     'data': '{}'
   };
 
-$.ajax(settings).done(function (response) {
+  $.ajax(settings).done(function(response) {
     var orgInfoList = response.map(function(object){
       return new OrgInfo(object);
     });
@@ -16,7 +16,6 @@ $.ajax(settings).done(function (response) {
     orgInfoList.forEach(function(instance){
       instance.buildDisplay();
     });
-    console.log(orgInfoList);
   });
 }
 
@@ -41,6 +40,7 @@ OrgInfo.prototype.buildDisplay = function() {
   var label = $('<h2>').html(this.name).appendTo(container);
   $(container).prependTo('.content');
 };
+// Clear current display on submit
 function clearDisplay() {
   $('.content').empty();
 }
